@@ -1,48 +1,128 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF‑8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FilmyFly Clone</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    header, h2 { color: #333; }
-    ul { list-style: none; padding: 0; }
-    li { margin-bottom: 8px; }
-    nav a { margin-right: 12px; color: #0055cc; text-decoration: none; }
-    .section { margin-top: 20px; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #111;
+      color: #fff;
+    }
+    header {
+      background-color: #1f1f1f;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      color: #00ccff;
+    }
+    nav {
+      background: #222;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #00ccff;
+    }
+    .section {
+      padding: 20px;
+    }
+    .section h2 {
+      border-bottom: 2px solid #00ccff;
+      padding-bottom: 5px;
+    }
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .movie {
+      background-color: #1c1c1c;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 0 5px rgba(0, 204, 255, 0.2);
+    }
+    .movie img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .movie p {
+      margin: 10px;
+      font-size: 14px;
+    }
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 15px;
+      color: #aaa;
+      font-size: 13px;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>FilmyFly - Movie Listing</h1>
-    <nav>
-      <a href="#">Bollywood</a>
-      <a href="#">Hollywood</a>
-      <a href="#">Web Series</a>
-      <a href="#">South Dubbed</a>
-    </nav>
+    <h1>🎬 FilmyFly</h1>
   </header>
+
+  <nav>
+    <a href="#">Bollywood</a>
+    <a href="#">Hollywood</a>
+    <a href="#">Web Series</a>
+    <a href="#">South Dubbed</a>
+  </nav>
 
   <div class="section">
     <h2>🔥 Trending Movies</h2>
-    <ul>
-      <li>Sarzameen (2025) – Bollywood Hindi Movie</li>
-      <li>Moh (2022) – Punjabi Movie</li>
-      <li>Bhairavam (2025) – South Hindi Dubbed</li>
-    </ul>
+    <div class="movie-grid">
+      <div class="movie">
+        <img src="https://via.placeholder.com/150x220?text=Sarzameen" alt="Sarzameen">
+        <p>Sarzameen (2025)</p>
+      </div>
+      <div class="movie">
+        <img src="https://via.placeholder.com/150x220?text=Moh" alt="Moh">
+        <p>Moh (2022)</p>
+      </div>
+      <div class="movie">
+        <img src="https://via.placeholder.com/150x220?text=Bhairavam" alt="Bhairavam">
+        <p>Bhairavam (2025)</p>
+      </div>
+    </div>
   </div>
 
   <div class="section">
     <h2>📽 Latest Movies</h2>
-    <ul>
-      <li>Maalik (2025) -- Bollywood Movie HDRip</li>
-      <li>Dhadak 2 (2025) -- Bollywood HQCam</li>
-      <li>Zebra (2025) -- South Hindi Dubbed</li>
-    </ul>
+    <div class="movie-grid">
+      <div class="movie">
+        <img src="https://via.placeholder.com/150x220?text=Maalik" alt="Maalik">
+        <p>Maalik (2025)</p>
+      </div>
+      <div class="movie">
+        <img src="https://via.placeholder.com/150x220?text=Dhadak+2" alt="Dhadak 2">
+        <p>Dhadak 2 (2025)</p>
+      </div>
+      <div class="movie">
+        <img src="https://via.placeholder.com/150x220?text=Zebra" alt="Zebra">
+        <p>Zebra (2025)</p>
+      </div>
+    </div>
   </div>
 
   <footer>
-    <p>Disclaimer: No content is hosted. This is a demo movie listing.</p>
+    © 2025 FilmyFly. All Rights Reserved. <br />
+    Disclaimer: This is a demo website. No media is hosted here.
   </footer>
 </body>
 </html>
