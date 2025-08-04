@@ -1,20 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Download Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Options</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #00ccff;
+    }
+    .quality-buttons {
+      margin-top: 30px;
+    }
+    .quality-buttons a {
+      display: inline-block;
+      background-color: #00ccff;
+      color: #000;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+  </style>
 </head>
-<body style="text-align:center; background:#111; color:white; padding:40px;">
-  <h2>Download <span id="movieName">Movie</span></h2>
-  <p>Select quality to download:</p>
-  <a href="#" style="display:block; margin:10px; padding:10px; background:#00ccff; color:black;">480p</a>
-  <a href="#" style="display:block; margin:10px; padding:10px; background:#00ccff; color:black;">720p</a>
-  <a href="#" style="display:block; margin:10px; padding:10px; background:#00ccff; color:black;">1080p</a>
-  <a href="#" style="display:block; margin:10px; padding:10px; background:#00ccff; color:black;">4K</a>
+<body>
+  <h1 id="movieTitle">Download Movie</h1>
+  <div class="quality-buttons" id="downloadButtons"></div>
 
   <script>
-    const url = new URL(window.location.href);
-    const movie = url.searchParams.get("movie");
-    document.getElementById("movieName").innerText = movie;
+    const movieLinks = {
+      "Kalki 2898 AD": "https://linkmake.in/view/Qm5YVvOEpS",
+      "Pushpa 2": "https://linkmake.in/view/DrlzRLHLRV",
+      "Animal": "https://linkmake.in/view/ojbrzWTxCk"
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const movie = params.get("movie");
+    const title = decodeURIComponent(movie);
+    document.getElementById("movieTitle").innerText = `Download: ${title}`;
+
+    const link = movieLinks[title];
+    const downloadContainer = document.getElementById("downloadButtons");
+
+    if (link) {
+      downloadContainer.innerHTML = `
+        <a href="${link}" target="_blank">480p</a>
+        <a href="${link}" target="_blank">720p</a>
+        <a href="${link}" target="_blank">1080p</a>
+      `;
+    } else {
+      downloadContainer.innerHTML = `<p>Sorry, download link not available for this movie.</p>`;
+    }
   </script>
 </body>
 </html>
