@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FilmyFly Clone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FilmyFly</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background-color: #111;
       color: #fff;
     }
@@ -17,8 +17,8 @@
       text-align: center;
     }
     header h1 {
-      margin: 0;
       color: #00ccff;
+      margin: 0;
     }
     nav {
       background: #222;
@@ -34,6 +34,18 @@
     nav a:hover {
       color: #00ccff;
     }
+    .search-box {
+      text-align: center;
+      padding: 20px;
+    }
+    .search-box input {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+    }
     .section {
       padding: 20px;
     }
@@ -43,7 +55,7 @@
     }
     .movie-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 15px;
       margin-top: 20px;
     }
@@ -56,12 +68,42 @@
     }
     .movie img {
       width: 100%;
-      height: 220px;
+      height: 260px;
       object-fit: cover;
     }
     .movie p {
-      margin: 10px;
-      font-size: 14px;
+      margin: 5px;
+      font-size: 15px;
+    }
+    .badges {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+    .badge {
+      background-color: #00ccff;
+      color: #000;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .download-btn, .trailer-btn {
+      margin: 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .download-btn {
+      background-color: #00ccff;
+      color: #000;
+    }
+    .trailer-btn {
+      background-color: #ff4444;
+      color: white;
     }
     footer {
       background: #111;
@@ -69,6 +111,29 @@
       padding: 15px;
       color: #aaa;
       font-size: 13px;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .popup iframe {
+      width: 90%;
+      max-width: 640px;
+      height: 360px;
+      border: none;
+    }
+    .popup-close {
+      position: absolute;
+      top: 20px; right: 30px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -78,51 +143,131 @@
   </header>
 
   <nav>
-    <a href="#">Bollywood</a>
-    <a href="#">Hollywood</a>
-    <a href="#">Web Series</a>
-    <a href="#">South Dubbed</a>
+    <a href="#trending">Trending</a>
+    <a href="#latest">Latest</a>
+    <a href="#bollywood">Bollywood</a>
+    <a href="#hollywood">Hollywood</a>
   </nav>
 
-  <div class="section">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search for movies...">
+  </div>
+
+  <!-- 🔥 Trending Movies -->
+  <div class="section" id="trending">
     <h2>🔥 Trending Movies</h2>
     <div class="movie-grid">
-      <div class="movie">
-        <img src="https://via.placeholder.com/150x220?text=Sarzameen" alt="Sarzameen">
-        <p>Sarzameen (2025)</p>
+      <div class="movie" data-title="Kalki 2898 AD">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Kalki_2898_AD.jpg/220px-Kalki_2898_AD.jpg" alt="Kalki 2898 AD">
+        <p>Kalki 2898 AD (2024)</p>
+        <div class="badges"><span class="badge">4K</span><span class="badge">IMDb 9.2</span></div>
+        <button class="download-btn">Download</button>
+        <button class="trailer-btn" onclick="openTrailer('https://www.youtube.com/embed/UgVv2F5T9Jc')">Watch Trailer</button>
       </div>
-      <div class="movie">
-        <img src="https://via.placeholder.com/150x220?text=Moh" alt="Moh">
-        <p>Moh (2022)</p>
-      </div>
-      <div class="movie">
-        <img src="https://via.placeholder.com/150x220?text=Bhairavam" alt="Bhairavam">
-        <p>Bhairavam (2025)</p>
+      <div class="movie" data-title="Pushpa 2">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/57/Pushpa_2_poster.jpg/220px-Pushpa_2_poster.jpg" alt="Pushpa 2">
+        <p>Pushpa 2 (2024)</p>
+        <div class="badges"><span class="badge">HD</span><span class="badge">IMDb 8.7</span></div>
+        <button class="download-btn">Download</button>
+        <button class="trailer-btn" onclick="openTrailer('https://www.youtube.com/embed/qGAsApGZBeY')">Watch Trailer</button>
       </div>
     </div>
   </div>
 
-  <div class="section">
-    <h2>📽 Latest Movies</h2>
+  <!-- 🆕 Latest Releases -->
+  <div class="section" id="latest">
+    <h2>🆕 Latest Movies</h2>
     <div class="movie-grid">
-      <div class="movie">
-        <img src="https://via.placeholder.com/150x220?text=Maalik" alt="Maalik">
-        <p>Maalik (2025)</p>
+      <div class="movie" data-title="Kill">
+        <img src="https://upload.wikimedia.org/wikipedia/en/d/db/Kill_2023_poster.jpg" alt="Kill">
+        <p>Kill (2024)</p>
+        <div class="badges"><span class="badge">HD</span><span class="badge">IMDb 8.1</span></div>
+        <button class="download-btn">Download</button>
+        <button class="trailer-btn" onclick="openTrailer('https://www.youtube.com/embed/sY6xdgIcF2E')">Watch Trailer</button>
       </div>
-      <div class="movie">
-        <img src="https://via.placeholder.com/150x220?text=Dhadak+2" alt="Dhadak 2">
-        <p>Dhadak 2 (2025)</p>
-      </div>
-      <div class="movie">
-        <img src="https://via.placeholder.com/150x220?text=Zebra" alt="Zebra">
-        <p>Zebra (2025)</p>
+      <div class="movie" data-title="Sarfira">
+        <img src="https://upload.wikimedia.org/wikipedia/en/1/12/Sarfira_film_poster.jpg" alt="Sarfira">
+        <p>Sarfira (2024)</p>
+        <div class="badges"><span class="badge">CAM</span><span class="badge">IMDb 7.4</span></div>
+        <button class="download-btn">Download</button>
+        <button class="trailer-btn" onclick="openTrailer('https://www.youtube.com/embed/LO9vVo8y8xw')">Watch Trailer</button>
       </div>
     </div>
+  </div>
+
+  <!-- 🇮🇳 Bollywood -->
+  <div class="section" id="bollywood">
+    <h2>🇮🇳 Bollywood</h2>
+    <div class="movie-grid">
+      <div class="movie" data-title="Animal">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/4d/Animal_film_poster.jpg" alt="Animal">
+        <p>Animal (2023)</p>
+        <div class="badges"><span class="badge">4K</span><span class="badge">IMDb 8.0</span></div>
+        <button class="download-btn">Download</button>
+        <button class="trailer-btn" onclick="openTrailer('https://www.youtube.com/embed/B5ZluUeXwdA')">Watch Trailer</button>
+      </div>
+      <div class="movie" data-title="Jawan">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/4f/Jawan_film_poster.jpg" alt="Jawan">
+        <p>Jawan (2023)</p>
+        <div class="badges"><span class="badge">HD</span><span class="badge">IMDb 7.5</span></div>
+        <button class="download-btn">Download</button>
+        <button class="trailer-btn" onclick="openTrailer('https://www.youtube.com/embed/Ax-_06Acj8Y')">Watch Trailer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🎥 Hollywood -->
+  <div class="section" id="hollywood">
+    <h2>🎥 Hollywood</h2>
+    <div class="movie-grid">
+      <div class="movie" data-title="Oppenheimer">
+        <img src="https://upload.wikimedia.org/wikipedia/en/6/6a/Oppenheimer_%28film%29.jpg" alt="Oppenheimer">
+        <p>Oppenheimer (2023)</p>
+        <div class="badges"><span class="badge">HD</span><span class="badge">IMDb 8.6</span></div>
+        <button class="download-btn">Download</button>
+        <button class="trailer-btn" onclick="openTrailer('https://www.youtube.com/embed/uYPbbksJxIg')">Watch Trailer</button>
+      </div>
+      <div class="movie" data-title="Dune 2">
+        <img src="https://upload.wikimedia.org/wikipedia/en/2/28/Dune_Part_Two_poster.jpg" alt="Dune 2">
+        <p>Dune: Part Two (2024)</p>
+        <div class="badges"><span class="badge">4K</span><span class="badge">IMDb 8.5</span></div>
+        <button class="download-btn">Download</button>
+        <button class="trailer-btn" onclick="openTrailer('https://www.youtube.com/embed/U2Qp5pL3ovA')">Watch Trailer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trailer Popup -->
+  <div class="popup" id="trailerPopup">
+    <span class="popup-close" onclick="closeTrailer()">×</span>
+    <iframe id="trailerFrame" src="" allowfullscreen></iframe>
   </div>
 
   <footer>
-    © 2025 FilmyFly. All Rights Reserved. <br />
-    Disclaimer: This is a demo website. No media is hosted here.
+    © 2025 FilmyFly. All rights reserved. | Demo site for educational purpose.
   </footer>
+
+  <script>
+    // Search
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', () => {
+      const filter = searchInput.value.toLowerCase();
+      document.querySelectorAll('.movie').forEach(movie => {
+        const title = movie.getAttribute('data-title').toLowerCase();
+        movie.style.display = title.includes(filter) ? '' : 'none';
+      });
+    });
+
+    // Popup trailer
+    function openTrailer(url) {
+      document.getElementById('trailerPopup').style.display = 'flex';
+      document.getElementById('trailerFrame').src = url;
+    }
+
+    function closeTrailer() {
+      document.getElementById('trailerPopup').style.display = 'none';
+      document.getElementById('trailerFrame').src = '';
+    }
+  </script>
 </body>
 </html>
